@@ -1,7 +1,7 @@
 # Synchronizing CPU and GPU Work
 
 Avoid stalls between CPU and GPU work by using multiple instances of a resource.
-
+(通过使用资源的多个实例，避免CPU和GPU工作之间的停顿。)
 ## Overview
 
 In this sample code project, you learn how to manage data dependencies and avoid processor stalls between the CPU and the GPU.
