@@ -86,7 +86,7 @@ Implementation of the renderer class that performs Metal setup and per-frame ren
     // Create a new command buffer for each rendering pass to the current drawable.
     id<MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
     commandBuffer.label = @"Command Buffer";
-    
+    //官方文档另外还解释如下：一个MTLRenderPassDescriptor对象包含一组attachments，作为rendering pass产生的像素的目的地。MTLRenderPassDescriptor还可以用来设置目标缓冲来保存rendering pass产生的可见性信息（光照可见性等用法，也就是自定义GBuffer的用法）。
     MTLRenderPassDescriptor *renderPassDescriptor = view.currentRenderPassDescriptor;
     if(renderPassDescriptor != nil)
     {

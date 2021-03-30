@@ -159,6 +159,10 @@ Implementation of renderer class which performs Metal setup and per frame render
     /* Obtain a renderPassDescriptor generated from the view's drawable textures
      获取从视图的可绘制纹理生成的renderPassDescriptor
      MTLRenderPassDescriptor 承载渲染目标
+     
+     官方文档另外还解释如下：一个MTLRenderPassDescriptor对象包含一组attachments，作为rendering pass产生的像素的目的地。
+     MTLRenderPassDescriptor还可以用来设置目标缓冲来保存rendering pass产生的可见性信息（光照可见性等用法，也就是自定义GBuffer的用法）。
+     
     */
     MTLRenderPassDescriptor *renderPassDescriptor = view.currentRenderPassDescriptor;
 
