@@ -6,6 +6,8 @@ import Cocoa
 import MetalKit
 
 public class PictureInput: ImageSource {
+    
+    /// 遵守 ImageSource 协议里面的targets
     public let targets = TargetContainer()
     var internalTexture:Texture?
     var hasProcessedImage:Bool = false
@@ -51,9 +53,18 @@ public class PictureInput: ImageSource {
             let textureLoader = MTKTextureLoader(device: sharedMetalRenderingDevice.device)
             if synchronously {
                 do {
+                    /*
+                     Synchronously loads image data and creates a new Metal texture from a given bitmap image.
+                     根据image生成Metal texture
+                     */
                     let imageTexture = try textureLoader.newTexture(cgImage:internalImage!, options: [MTKTextureLoader.Option.SRGB : false])
                     internalImage = nil
                     self.internalTexture = Texture(orientation: .portrait, texture: imageTexture)
+                    /*
+                     updateTargetsWithTexture()接口是通过 public extension ImageSource {}方式进行扩展出来的
+                     内部实现是遍历targets这数组，并调用target的newTextureAvailable(_ texture:Texture, fromSourceIndex:UInt)
+                     targets中装的就是具体的滤镜，具体的滤镜会具体实现newTextureAvailable(_ texture:Texture, fromSourceIndex:UInt)这个
+                     */
                     self.updateTargetsWithTexture(self.internalTexture!)
                     self.hasProcessedImage = true
                 } catch {

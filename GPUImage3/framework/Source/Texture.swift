@@ -44,6 +44,13 @@ public class Texture {
                                                                          mipmapped: false)
         textureDescriptor.usage = [.renderTarget, .shaderRead, .shaderWrite]
         
+        /*
+         根据MTLTextureDescriptor(用来描述纹理texture的一些属性) 创建纹理texture
+         When you create a texture, Metal copies property values from the descriptor into the new texture.
+         You can reuse a MTLTextureDescriptor object, modifying its property values as needed,
+         to create more MTLTexture objects, without affecting any textures you already created.
+         也就是MTLTextureDescriptor 可以复用，修改而不会影响已经创建的texture，
+         */
         guard let newTexture = sharedMetalRenderingDevice.device.makeTexture(descriptor: textureDescriptor) else {
             fatalError("Could not create texture of size: (\(width), \(height))")
         }

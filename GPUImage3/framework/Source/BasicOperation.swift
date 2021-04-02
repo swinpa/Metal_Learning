@@ -20,6 +20,8 @@ open class BasicOperation: ImageProcessingOperation {
     
     public var activatePassthroughOnNextFrame: Bool = false
     public var uniformSettings:ShaderUniformSettings
+    
+    /// 判断设备是否支持Metal渲染
     public var useMetalPerformanceShaders: Bool = false {
         didSet {
             if !sharedMetalRenderingDevice.metalPerformanceShadersAreSupported {
@@ -76,6 +78,13 @@ open class BasicOperation: ImageProcessingOperation {
                 uniformSettings["aspectRatio"] = firstInputTexture.aspectRatio(for: outputRotation)
             }
             
+            /*
+             Create a new command buffer for each render pass to the current drawable.
+             command buffer存放每次渲染的指令,即包含了每次渲染所需要的信息，直到指令被提交到GPU执行
+             If the command queue has a maximum number of command buffers and the app
+             already has that many buffers waiting, this method blocks until a buffer
+             becomes available.
+             */
             guard let commandBuffer = sharedMetalRenderingDevice.commandQueue.makeCommandBuffer() else {return}
 
             let outputTexture = Texture(device:sharedMetalRenderingDevice.device, orientation: .portrait, width: outputWidth, height: outputHeight, timingStyle: firstInputTexture.timingStyle)
@@ -92,12 +101,23 @@ open class BasicOperation: ImageProcessingOperation {
                 return
             }
             
-            if let alternateRenderingFunction = metalPerformanceShaderPathway, useMetalPerformanceShaders {
+            if let alternateRenderingFunction = metalPerformanceShaderPathway, useMetalPerformanceShaders
+            {
                 var rotatedInputTextures: [UInt:Texture]
-                if (firstInputTexture.orientation.rotationNeeded(for:.portrait) != .noRotation) {
+                if (firstInputTexture.orientation.rotationNeeded(for:.portrait) != .noRotation)
+                {
                     let rotationOutputTexture = Texture(device:sharedMetalRenderingDevice.device, orientation: .portrait, width: outputWidth, height: outputHeight)
-                    guard let rotationCommandBuffer = sharedMetalRenderingDevice.commandQueue.makeCommandBuffer() else {return}
-                    rotationCommandBuffer.renderQuad(pipelineState: sharedMetalRenderingDevice.passthroughRenderState, uniformSettings: uniformSettings, inputTextures: inputTextures, useNormalizedTextureCoordinates: useNormalizedTextureCoordinates, outputTexture: rotationOutputTexture)
+                    guard let rotationCommandBuffer = sharedMetalRenderingDevice.commandQueue.makeCommandBuffer() else {
+                        return
+                    }
+                    /*
+                     renderQuad 为extension MTLCommandBuffer{} 中扩展的方法
+                     */
+                    rotationCommandBuffer.renderQuad(pipelineState: sharedMetalRenderingDevice.passthroughRenderState,
+                                                     uniformSettings: uniformSettings,
+                                                     inputTextures: inputTextures,
+                                                     useNormalizedTextureCoordinates: useNormalizedTextureCoordinates,
+                                                     outputTexture: rotationOutputTexture)
                     rotationCommandBuffer.commit()
                     rotatedInputTextures = inputTextures
                     rotatedInputTextures[0] = rotationOutputTexture
@@ -108,6 +128,13 @@ open class BasicOperation: ImageProcessingOperation {
             } else {
                 internalRenderFunction(commandBuffer: commandBuffer, outputTexture: outputTexture)
             }
+            /*
+             After you call the commit() method, the MTLDevice schedules and executes the commands in the command buffer.
+             If you haven’t already enqueued the command buffer with a call to enqueue(), calling this function also
+             enqueues the command buffer. The GPU executes the command buffer after any command buffers enqueued before
+             it on the same command queue.
+             也就是将command 提交到command queue 中，GPU会从这个queue中获取并执行command进行渲染
+             */
             commandBuffer.commit()
             
             removeTransientInputs()

@@ -72,10 +72,15 @@ extension MTLCommandBuffer {
         renderPass.colorAttachments[0].storeAction = .store
         renderPass.colorAttachments[0].loadAction = .clear
         
+        /*
+         Creates an object from a descriptor to encode a rendering pass into the command buffer.
+         意思是创建一个Encoder，用来将renderPass encode 到command 中？
+         */
         guard let renderEncoder = self.makeRenderCommandEncoder(descriptor: renderPass) else {
             fatalError("Could not create render encoder")
         }
         renderEncoder.setFrontFacing(.counterClockwise)
+        // 设置渲染管道，以保证顶点和片元两个shader会被调用
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
         
@@ -83,16 +88,35 @@ extension MTLCommandBuffer {
             let currentTexture = inputTextures[UInt(textureIndex)]!
             
             let inputTextureCoordinates = currentTexture.textureCoordinates(for:outputOrientation, normalized:useNormalizedTextureCoordinates)
+            /*
+             Allocates a new buffer of a given length and initializes its contents by copying existing data into it.
+             
+             MTLBuffer objects created with this method are CPU-accessible
+             
+             */
             let textureBuffer = sharedMetalRenderingDevice.device.makeBuffer(bytes: inputTextureCoordinates,
                                                                              length: inputTextureCoordinates.count * MemoryLayout<Float>.size,
                                                                              options: [])!
             textureBuffer.label = "Texture Coordinates"
 
+            // 设置顶点缓存
             renderEncoder.setVertexBuffer(textureBuffer, offset: 0, index: 1 + textureIndex)
+            // 设置纹理
             renderEncoder.setFragmentTexture(currentTexture.texture, index: textureIndex)
         }
         uniformSettings?.restoreShaderSettings(renderEncoder: renderEncoder)
+        /*
+         Encodes a command to render one instance of primitives using vertex data in contiguous array elements.
+         输入command，使用顶点数据（vertex data）去渲染一个图元实例？？
+         
+         Drawing starts with the first vertex at the array element with index vertexStart and ends at the array
+         element with index vertexStart + vertexCount - 1.
+         When a draw command is encoded, any necessary references to rendering state or resources previously
+         set on the encoder are recorded as part of the command. After encoding a command, you can safely change the
+         encoding state to set up parameters needed to encode other commands.
+         */
         renderEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4)
+        //编码结束？
         renderEncoder.endEncoding()
     }
 }
