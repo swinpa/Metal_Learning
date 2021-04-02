@@ -43,6 +43,8 @@ open class BasicOperation: ImageProcessingOperation {
         self.operationName = operationName
         
         let concreteVertexFunctionName = vertexFunctionName ?? defaultVertexFunctionNameForInputs(numberOfInputs)
+        //根据 vertexFunctionName， fragmentFunctionName这些创建pipelineState
+        
         let (pipelineState, lookupTable) = generateRenderPipelineState(device:sharedMetalRenderingDevice, vertexFunctionName:concreteVertexFunctionName, fragmentFunctionName:fragmentFunctionName, operationName:operationName)
         self.renderPipelineState = pipelineState
         self.uniformSettings = ShaderUniformSettings(uniformLookupTable:lookupTable)
@@ -139,6 +141,9 @@ open class BasicOperation: ImageProcessingOperation {
             
             removeTransientInputs()
             textureInputSemaphore.signal()
+            /*
+             渲染结束，获取下个滤镜进行渲染，或者输出
+             */
             updateTargetsWithTexture(outputTexture)
             let _ = textureInputSemaphore.wait(timeout:DispatchTime.distantFuture)
         }
@@ -153,6 +158,10 @@ open class BasicOperation: ImageProcessingOperation {
     }
     
     func internalRenderFunction(commandBuffer: MTLCommandBuffer, outputTexture: Texture) {
-        commandBuffer.renderQuad(pipelineState: renderPipelineState, uniformSettings: uniformSettings, inputTextures: inputTextures, useNormalizedTextureCoordinates: useNormalizedTextureCoordinates, outputTexture: outputTexture)
+        commandBuffer.renderQuad(pipelineState: renderPipelineState,//在初始化时已经准备好了着色器函数
+                                 uniformSettings: uniformSettings,
+                                 inputTextures: inputTextures,
+                                 useNormalizedTextureCoordinates: useNormalizedTextureCoordinates,
+                                 outputTexture: outputTexture)
     }
 }

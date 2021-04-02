@@ -36,6 +36,14 @@ class ViewController: UIViewController {
         /*
          picture.processImage()最终会遍历他的targets(在这里装的是filter = SaturationAdjustment()这个滤镜)
          然后执行滤镜的 newTextureAvailable(_ texture:Texture, fromSourceIndex:UInt)方法进行渲染
+         
+         picture中的target 是filter，filter 中的target是renderView
+         所以当picture执行processImage 时会获取到filter并执行newTextureAvailable 进行渲染
+         当filter 渲染完，他会拿取他的target（在这里是renderView）执行newTextureAvailable 进行渲染
+         RenderView 会通过GPU 渲染到view上然后显示在屏幕上
+         
+         如果最后的是PictureOutput，则会经过GPU渲染后，根据渲染出来的纹理（像素数据）生成cgimage
+         
          */
         picture.processImage()
     }
