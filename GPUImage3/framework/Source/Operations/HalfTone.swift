@@ -1,3 +1,6 @@
+/**
+ 半色调，模拟印刷效果。
+ */
 public class Halftone: BasicOperation {
     public var fractionalWidthOfAPixel:Float = 0.01 {
         didSet {

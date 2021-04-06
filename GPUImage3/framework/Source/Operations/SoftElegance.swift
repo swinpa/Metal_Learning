@@ -1,3 +1,6 @@
+/**
+ 一个基于lookup的颜色重映射滤镜，继承自OperationGroup
+ */
 public class SoftElegance: OperationGroup {
     let lookup1 = LookupFilter()
     let lookup2 = LookupFilter()

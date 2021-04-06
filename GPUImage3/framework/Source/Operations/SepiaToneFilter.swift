@@ -1,3 +1,7 @@
+/**
+ 简单的棕褐色滤镜。
+ intensity:Float 滤镜的程度，取值[0.0, 1.0]，默认0.0。
+ */
 public class SepiaToneFilter: ColorMatrixFilter {
     override public init() {
         super.init()

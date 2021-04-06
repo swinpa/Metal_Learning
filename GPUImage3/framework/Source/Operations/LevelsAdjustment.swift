@@ -1,3 +1,12 @@
+/**
+ 类Photoshop调整色阶。
+ minimum:Color
+ middle:Color
+ maximum:Color
+ minOutput:Color
+ maxOutput:Color
+ 所有Color实例的RGB取值[0.0, 1.0]。
+ */
 public class LevelsAdjustment: BasicOperation {
     public var minimum:Color = Color(red:0.0, green:0.0, blue:0.0) { didSet { uniformSettings["minimum"] = minimum } }
     public var middle:Color = Color(red:1.0, green:1.0, blue:1.0) { didSet { uniformSettings["middle"] = middle } }

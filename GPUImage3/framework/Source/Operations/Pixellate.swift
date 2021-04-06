@@ -1,3 +1,7 @@
+/**
+ 像素化（马赛克）。
+ fractionalWidthOfAPixel:Float 像素块的大小，取值[0.0, 1.0]，默认0.01。
+ */
 public class Pixellate: BasicOperation {
     public var fractionalWidthOfAPixel:Float = 0.01 {
         didSet {

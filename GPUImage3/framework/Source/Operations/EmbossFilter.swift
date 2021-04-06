@@ -1,3 +1,7 @@
+/**
+ 浮雕效果。
+ intensity:Float 浮雕的强度，取值[0.0, 4.0]，默认1.0。
+ */
 public class EmbossFilter : Convolution3x3 {
     public var intensity:Float = 1.0 {
         didSet {
