@@ -3,6 +3,10 @@
    version = "1.0">
    <Group
       location = "container:"
+      name = "&#x7b14;&#x8bb0;">
+   </Group>
+   <Group
+      location = "container:"
       name = "GPUImage3">
       <FileRef
          location = "group:GPUImage3/examples/iOS/SimpleVideoRecorder/SimpleVideoRecorder.xcodeproj">
