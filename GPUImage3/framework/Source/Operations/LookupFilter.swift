@@ -10,7 +10,7 @@ public class LookupFilter: BasicOperation {
     public var lookupImage:PictureInput? { // TODO: Check for retain cycles in all cases here
         didSet {
             lookupImage?.addTarget(self, atTargetIndex:1)
-            //先将lookup 图
+            //先将lookup 图渲染生成纹理Texture
             lookupImage?.processImage()
         }
     }

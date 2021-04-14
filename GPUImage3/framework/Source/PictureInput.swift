@@ -50,6 +50,9 @@ public class PictureInput: ImageSource {
                 }
             }
         } else {
+            /*
+             An object that decodes common image formats into Metal textures for use in your app.
+             */
             let textureLoader = MTKTextureLoader(device: sharedMetalRenderingDevice.device)
             if synchronously {
                 do {
