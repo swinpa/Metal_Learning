@@ -86,6 +86,9 @@ open class BasicOperation: ImageProcessingOperation {
              If the command queue has a maximum number of command buffers and the app
              already has that many buffers waiting, this method blocks until a buffer
              becomes available.
+             
+             command buffer是“一次性对象”，不支持重用。一旦command buffer被提交执行，唯一能做的是等待command buffer被调度或完成。
+             
              */
             guard let commandBuffer = sharedMetalRenderingDevice.commandQueue.makeCommandBuffer() else {return}
 
@@ -143,6 +146,7 @@ open class BasicOperation: ImageProcessingOperation {
             textureInputSemaphore.signal()
             /*
              渲染结束，获取下个滤镜进行渲染，或者输出
+             以当前的结果作为下一个渲染的输入
              */
             updateTargetsWithTexture(outputTexture)
             let _ = textureInputSemaphore.wait(timeout:DispatchTime.distantFuture)

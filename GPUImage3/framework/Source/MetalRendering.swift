@@ -75,6 +75,18 @@ extension MTLCommandBuffer {
         /*
          Creates an object from a descriptor to encode a rendering pass into the command buffer.
          意思是创建一个Encoder，用来将renderPass encode 到command 中？
+         
+         Command buffers是从command queue里创建的
+         Command encoders将渲染指令command填充到command buffers
+         Command buffers将数据提交到GPU
+         GPU开始执行，呈现结果
+         
+         MTLCommandEncoder 编码器(Command Encoder)，将我们描述的高级指令，编码转换成GPU可以理解的低级指令(GPU commands)，写入command buffer中。
+         MTLRenderCommandEncoder | 用于图形渲染任务的编码器 |
+         MTLComputeCommandEncoder | 用于计算任务的编码器 |
+         MTLBlitCommandEncoder | 用于内存管理任务的编码器 |
+         MTLParallelRenderCommandEncoder | 用于并行编码的多个图形渲染任务的编码器 |
+         
          */
         guard let renderEncoder = self.makeRenderCommandEncoder(descriptor: renderPass) else {
             fatalError("Could not create render encoder")

@@ -9,6 +9,7 @@ public class MetalRenderingDevice {
     // MTLCommandQueue
     
     public let device: MTLDevice
+    ///Command queue用于创建和组织MTLCommandBuffer，其内部存在着多个command buffer，并且保证指令（command buffer）有序地发送到GPU。
     public let commandQueue: MTLCommandQueue
     public let shaderLibrary: MTLLibrary
     public let metalPerformanceShadersAreSupported: Bool

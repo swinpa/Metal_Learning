@@ -16,3 +16,4 @@ fragment half4 luminanceFragment(SingleInputVertexIO fragmentInput [[stage_in]],
     
     return half4(half3(luminance), color.a);
 }
+
