@@ -6,11 +6,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var renderView: RenderView!
 
     var picture:PictureInput!
-    var filter:SaturationAdjustment!
+    var filter:LookupFilter!
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
+        //一些滤镜算法https://juejin.cn/post/6844903680244711431
         // Filtering image for saving
         let testImage = UIImage(named:"WID-small.jpg")!
         let toonFilter = ToonFilter()
@@ -27,7 +27,11 @@ class ViewController: UIViewController {
         
         // Filtering image for display
         picture = PictureInput(image:UIImage(named:"WID-small.jpg")!)
-        filter = SaturationAdjustment()
+        let lookuptable = PictureInput(image:UIImage(named:"lookupTable.jpg")!)
+//        filter = SaturationAdjustment()
+        filter = LookupFilter.init()
+        filter.lookupImage = lookuptable
+        
         /*
          Pipeline.swift 中定义了 --> 操作符，实现的是将 --> 操作符右边的参数添加到 --> 操作符左边参数的targets 中，并且返回-->操作符右边参数
          滤镜中也有targets这字段，故也可以通过--> 操作符添加下一个滤镜，或者输出

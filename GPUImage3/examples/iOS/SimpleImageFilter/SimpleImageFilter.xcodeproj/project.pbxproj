@@ -14,6 +14,7 @@
 		BCD985BA1CA43FD5001FF01F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCD985B81CA43FD5001FF01F /* LaunchScreen.storyboard */; };
 		BCD985D51CA48F15001FF01F /* WID-small.jpg in Resources */ = {isa = PBXBuildFile; fileRef = BCD985D41CA48F15001FF01F /* WID-small.jpg */; };
 		BCFB058C1CBF17FD009B2333 /* Assets-iOS.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCFB058B1CBF17FD009B2333 /* Assets-iOS.xcassets */; };
+		F709F2EC2627342000494A24 /* lookupTable.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F709F2EA2627341F00494A24 /* lookupTable.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		BCD985BB1CA43FD5001FF01F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCD985D41CA48F15001FF01F /* WID-small.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "WID-small.jpg"; path = "../../../SharedAssets/WID-small.jpg"; sourceTree = "<group>"; };
 		BCFB058B1CBF17FD009B2333 /* Assets-iOS.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = "Assets-iOS.xcassets"; path = "../../../SharedAssets/Assets-iOS.xcassets"; sourceTree = "<group>"; };
+		F709F2EA2627341F00494A24 /* lookupTable.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lookupTable.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 		BCD985CA1CA44005001FF01F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F709F2EA2627341F00494A24 /* lookupTable.jpg */,
 				BCFB058B1CBF17FD009B2333 /* Assets-iOS.xcassets */,
 				BCD985D41CA48F15001FF01F /* WID-small.jpg */,
 				BCD985B81CA43FD5001FF01F /* LaunchScreen.storyboard */,
@@ -167,7 +170,7 @@
 				TargetAttributes = {
 					BCD985AB1CA43FD5001FF01F = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = FXDNFQ7FRM;
+						DevelopmentTeam = F74PKSSV63;
 						LastSwiftMigration = 0940;
 					};
 				};
@@ -223,6 +226,7 @@
 				BCD985D51CA48F15001FF01F /* WID-small.jpg in Resources */,
 				BCFB058C1CBF17FD009B2333 /* Assets-iOS.xcassets in Resources */,
 				BCD985B51CA43FD5001FF01F /* Main.storyboard in Resources */,
+				F709F2EC2627342000494A24 /* lookupTable.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,10 +382,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FXDNFQ7FRM;
+				DEVELOPMENT_TEAM = F74PKSSV63;
 				INFOPLIST_FILE = SimpleImageFilter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.redqueencoder.SimpleImageFilter.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wp.GPUImageFilter.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
@@ -392,10 +397,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = FXDNFQ7FRM;
+				DEVELOPMENT_TEAM = F74PKSSV63;
 				INFOPLIST_FILE = SimpleImageFilter/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.redqueencoder.SimpleImageFilter.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wp.GPUImageFilter.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
