@@ -39,6 +39,69 @@
 而这几步，正是我们和 GPU 交互的具体描述。用 Metal 描述如下：
 ![](https://images.xiaozhuanlan.com/photo/2018/30708e590a6e523ec212de678d5e608d.png)
 
+具体到代码
+
+```
+let device: MTLDevice = MTLCreateSystemDefaultDevice()
+let commandQueue: MTLCommandQueue = device.makeCommandQueue()
+let commandBuffer = commandQueue.makeCommandBuffer() 
+commandBuffer.commit()
+```
+上面这几步就完成了大概过程，具体需要GPU处理什么纹理(目标)，怎么处理(着色器)，则就需要在commandBuffer中告诉GPU，（通过MTLCommandEncoder将这些信息与commandBuffer关联）
+#####1. 准备渲染目标纹理(图片)
+```
+let textureLoader: MTKTextureLoader = MTKTextureLoader(device: device)
+let imageTexture = try textureLoader.newTexture(cgImage: image, options: [MTKTextureLoader.Option.SRGB : false])
+```
+#####2. 准备渲染过程中用到的顶点着色器(vertexFunction),片段着色器(fragmentFunction),以及像素格式pixelFormat
+
+```
+let defaultLibrary = try device.makeLibrary(filepath:metalLibraryPath)
+let fragmentFunction = sharedContext.defaultLibrary.makeFunction(name: fragmentFunctionName)    
+let descriptor = MTLRenderPipelineDescriptor()
+descriptor.colorAttachments[0].pixelFormat = MTLPixelFormat.bgra8Unorm
+descriptor.vertexFunction = vertexFunction
+descriptor.fragmentFunction = fragmentFunction
+let renderPipelineState = device.makeRenderPipelineState(descriptor: descriptor)
+
+```
+
+#####3. 准备渲染处理结束后存储在哪里(输出纹理outputTexture)
+
+```
+let renderPass = MTLRenderPassDescriptor()
+renderPass.colorAttachments[0].texture = outputTexture.texture
+renderPass.colorAttachments[0].clearColor = clearColor
+renderPass.colorAttachments[0].storeAction = .store
+renderPass.colorAttachments[0].loadAction = .clear
+        
+```
+#####4. 通过MTLRenderCommandEncoder将前面的目标纹理(imageTexture 也就是图片)，怎么处理(着色器)，输出纹理outputTexture与commandBuffer关联起来
+
+```
+let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPass)        renderEncoder.setFrontFacing(.counterClockwise)
+//设置着色器
+renderEncoder.setRenderPipelineState(pipelineState)
+//设置顶点着色器的参数
+renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+//设置需要处理的纹理
+renderEncoder.setFragmentTexture(imageTexture, index: textureIndex)
+//设置片段着色器的参数
+let uniformBuffer = device.makeBuffer(bytes: uniformValues,//比如lookup图的纹理，或者亮度，饱和度等待
+                                                                length: uniformValues.count * MemoryLayout<Float>.size,
+                                                                options: [])!
+renderEncoder.setFragmentBuffer(uniformBuffer, offset: 0, index: 1)
+renderEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: imageVertices.count / 2)
+/*
+Declares that all command generation from the encoder is completed.
+After endEncoding is called, the command encoder has no further use. You cannot encode any other commands with this encoder.
+也就是encode 完成，后面就可以提交到queue中了
+*/
+renderEncoder.endEncoding()
+```
+
+
+
 ##GPUImage 执行流程
 
 1. 初始化输入(图片输入)PictureInput(image:UIImage(named:"WID-small.jpg")!)
