@@ -88,6 +88,7 @@ extension MTLCommandBuffer {
          MTLParallelRenderCommandEncoder | 用于并行编码的多个图形渲染任务的编码器 |
          
          */
+        //使用MTLCommandBuffer make 一个RenderCommandEncoder
         guard let renderEncoder = self.makeRenderCommandEncoder(descriptor: renderPass) else {
             fatalError("Could not create render encoder")
         }

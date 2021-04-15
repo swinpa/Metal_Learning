@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <FileRef
+      location = "group:Metal-Practice/MetalImageProcessing/MetalImageProcessing.xcodeproj">
+   </FileRef>
    <Group
       location = "group:&#x7b14;&#x8bb0;"
       name = "&#x7b14;&#x8bb0;">
@@ -28,31 +31,31 @@
       </FileRef>
    </Group>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/3 - UsingARenderPipelineToRenderPrimitives/3-HelloTriangle.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/9 - UsingArgumentBuffersWithResourceHeaps/9-ArgumentBufferArraysWithHeaps.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/5 - CalculatingPrimitiveVisibilityUsingDepthTesting/5-DepthTesting.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/8 - ManagingGroupsOfResourcesWithArgumentBuffers/8-BasicArgumentBuffers.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/8 - ManagingGroupsOfResourcesWithArgumentBuffers/8-BasicArgumentBuffers.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/7 - EncodingIndirectCommandBuffersOnTheCPU/7-BasicIndirectCommandBuffers.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/4 - CreatingAndSamplingTextures/4-BasicTexturing.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/6 - SynchronizingCPUAndGPUWork/6-CPU-GPU-Synchronization.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/9 - UsingArgumentBuffersWithResourceHeaps/9-ArgumentBufferArraysWithHeaps.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/5 - CalculatingPrimitiveVisibilityUsingDepthTesting/5-DepthTesting.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/6 - SynchronizingCPUAndGPUWork/6-CPU-GPU-Synchronization.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/4 - CreatingAndSamplingTextures/4-BasicTexturing.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/7 - EncodingIndirectCommandBuffersOnTheCPU/7-BasicIndirectCommandBuffers.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/3 - UsingARenderPipelineToRenderPrimitives/3-HelloTriangle.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/2 - UsingMetalToDrawAViewContentsents/2-MetalKitAndRenderingSetup.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/2 - UsingMetalToDrawAViewContentsents/2-MetalKitAndRenderingSetup.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Apple-Official-MetalSampleCode/1 - PerformingCalculationsOnAGPU/1-MetalComputeBasic.xcodeproj">
+      location = "group:/Users/mac/Documents/study/Metal_Learning/Apple-Official-MetalSampleCode/1 - PerformingCalculationsOnAGPU/1-MetalComputeBasic.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Metal01/Metal01.xcodeproj">
