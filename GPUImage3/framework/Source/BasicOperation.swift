@@ -19,6 +19,10 @@ open class BasicOperation: ImageProcessingOperation {
     public let sources = SourceContainer()
     
     public var activatePassthroughOnNextFrame: Bool = false
+    
+    /*
+     滤镜需要的一些参数配置。
+     */
     public var uniformSettings:ShaderUniformSettings
     
     /// 判断设备是否支持Metal渲染
@@ -31,8 +35,15 @@ open class BasicOperation: ImageProcessingOperation {
         }
     }
 
+    /*
+     renderPipelineState，本次渲染操作的具体描述，主要差异体现在 Vertex Function 和 Fragment Function 上。
+     在滤镜初始化时设置顶点着色器跟片段着色器
+     */
     let renderPipelineState: MTLRenderPipelineState
     let operationName: String
+    /*
+     对应的输入纹理。
+     */
     var inputTextures = [UInt:Texture]()
     let textureInputSemaphore = DispatchSemaphore(value:1)
     var useNormalizedTextureCoordinates = true

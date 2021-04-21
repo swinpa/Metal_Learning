@@ -31,13 +31,22 @@ public class Texture {
     
     public let texture: MTLTexture
     
-    public init(orientation: ImageOrientation, texture: MTLTexture, timingStyle: TextureTimingStyle  = .stillImage) {
+    public init(orientation: ImageOrientation,
+                texture: MTLTexture,
+                timingStyle: TextureTimingStyle  = .stillImage)
+    {
         self.orientation = orientation
         self.texture = texture
         self.timingStyle = timingStyle
     }
     
-    public init(device:MTLDevice, orientation: ImageOrientation, pixelFormat: MTLPixelFormat = .bgra8Unorm, width: Int, height: Int, mipmapped:Bool = false, timingStyle: TextureTimingStyle  = .stillImage) {
+    public init(device:MTLDevice,
+                orientation: ImageOrientation,
+                pixelFormat: MTLPixelFormat = .bgra8Unorm,
+                width: Int, height: Int,
+                mipmapped:Bool = false,
+                timingStyle: TextureTimingStyle  = .stillImage)
+    {
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .bgra8Unorm,
                                                                          width: width,
                                                                          height: height,
@@ -118,11 +127,59 @@ extension Texture {
 }
 
 extension Texture {
+    
+    /*
+     解释一下CIImage CGImage UIImage的区别：
+     UIImage
+     Apple describes a UIImage object as a high-level way to display image
+     data. You can create images from files, from Quartz image objects, or
+     from raw image data you receive. They are immutable and must specify
+     an image’s properties at initialization time. This also means that
+     these image objects are safe to use from any thread. Typically you can
+     take NSData object containing a PNG or JPEG representation image and
+     convert it to a UIImage. To create a new UIImage, for example:
+     
+     CGImage
+     A CGImage can only representbitmaps. Operations in CoreGraphics, such
+     as blend modes and masking require CGImageRefs. If you need to access
+     and change the actual bitmap data, you can use CGImage. It can also be
+     converted to NSBitmapImageReps. To create a new UIImage from a
+     CGImage,
+     
+     
+     CIImage
+     A CIImage is a immutable object that represents an image. It isnot an
+     image. It only has the image data associated with it. It has all the
+     information necessary to produce an image. You typically use CIImage
+     objects in conjunction with other Core Image classes such as CIFilter,
+     CIContext, CIColor, and CIVector. You can create CIImage objects with
+     data supplied from variety of sources such as Quartz 2D images, Core
+     Videos image, etc. It is required to use the various GPU optimized
+     Core Image filters. They can also be converted to NSBitmapImageReps.
+     It can be based on the CPU or the GPU. To create a new CIImage,
+     
+     
+     它们属于不同的框架：分别为UIKit，CoreGraphics，CoreImage。
+
+     通常，您使用UIImage，除非您有使用其他框架方便的特定用例(例如使用CoreImage过滤器)。
+
+     */
+    
     func cgImage() -> CGImage {
-        // Flip and swizzle image
-        guard let commandBuffer = sharedMetalRenderingDevice.commandQueue.makeCommandBuffer() else { fatalError("Could not create command buffer on image rendering.")}
+        // Flip(翻转) and swizzle image
+        guard let commandBuffer = sharedMetalRenderingDevice.commandQueue.makeCommandBuffer() else {
+            fatalError("Could not create command buffer on image rendering.")
+        }
+        //获取输出纹理
         let outputTexture = Texture(device:sharedMetalRenderingDevice.device, orientation:self.orientation, width:self.texture.width, height:self.texture.height)
-        commandBuffer.renderQuad(pipelineState:sharedMetalRenderingDevice.colorSwizzleRenderState, uniformSettings:nil, inputTextures:[0:self], useNormalizedTextureCoordinates:true, outputTexture:outputTexture)
+        /*
+         对commandBuffer 进行编码，也就是通过编码告诉GPU处理的纹理是什么，处理完存储在哪里（输出纹理）,对纹理需要怎么处理（需要执行什么着色器）
+         */
+        commandBuffer.renderQuad(pipelineState:sharedMetalRenderingDevice.colorSwizzleRenderState,
+                                 uniformSettings:nil,
+                                 inputTextures:[0:self],
+                                 useNormalizedTextureCoordinates:true,
+                                 outputTexture:outputTexture)
         //提交到queue中开始进行渲染
         commandBuffer.commit()
         //等待渲染结束

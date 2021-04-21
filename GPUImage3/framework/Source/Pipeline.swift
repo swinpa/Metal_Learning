@@ -1,12 +1,15 @@
 // MARK: -
-// MARK: Basic types
+// MARK: Basic types（定义输入输出基本协议以及协议中包含的容器，以及容器的操作）
 import Foundation
 
+
+/// 输入相关，如Camera， PictureInput，MovieInput
 public protocol ImageSource {
     var targets:TargetContainer { get }
     func transmitPreviousImage(to target:ImageConsumer, atIndex:UInt)
 }
 
+/// 输出相关，如RenderView，PictureOutput，MovieOutput
 public protocol ImageConsumer:AnyObject {
     var maximumInputs:UInt { get }
     var sources:SourceContainer { get }
@@ -14,8 +17,15 @@ public protocol ImageConsumer:AnyObject {
     func newTextureAvailable(_ texture:Texture, fromSourceIndex:UInt)
 }
 
+/**
+ *图片处理（滤镜）相关，
+ *这么定义是方便operation遵守ImageProcessingOperation协议时就遵守了ImageConsumer，ImageSource吗，这时operation就
+ *不需要Operation: ImageConsumer, ImageSource 这样了吗？？？
+ *也就表明了Operation是需要输入与输出的意思吗？
+ */
 public protocol ImageProcessingOperation: ImageConsumer, ImageSource {
 }
+
 //infix 表示要定义的是一个中位操作符，即前后都是输入
 infix operator --> : AdditionPrecedence
 //precedencegroup ProcessingOperationPrecedence {
@@ -29,8 +39,7 @@ infix operator --> : AdditionPrecedence
 }
 
 // MARK: -
-// MARK: Extensions and supporting types
-
+// MARK: Extensions and supporting types（扩展协议并添加默认实现）
 public extension ImageSource {
     func addTarget(_ target:ImageConsumer, atTargetIndex:UInt? = nil) {
         if let targetIndex = atTargetIndex {

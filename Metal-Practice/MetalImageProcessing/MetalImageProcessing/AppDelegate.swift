@@ -16,6 +16,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        print("+++\(Thread.current)")
+        print("+++++++++++++++begin+++++++++++++++++")
+        
+        for i in 0..<10 {
+            DispatchQueue.global().async {
+                DispatchQueue.main.async {
+                    print("---\(Thread.current)")
+                }
+            }
+            
+        }
+
+        print("+++++++++++++++end+++++++++++++++++")
+        sleep(20)
+        print("+++++++++++++++awake+++++++++++++++++")
         return true
     }
 

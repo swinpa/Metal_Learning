@@ -650,7 +650,7 @@
 				INFOPLIST_FILE = MetalImageProcessing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MetalImageProcessing/MetalCore/Operations";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wp.MetalImageProcessing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wp.MetalImageProcessing.o;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
@@ -668,7 +668,7 @@
 				INFOPLIST_FILE = MetalImageProcessing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MTL_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/MetalImageProcessing/MetalCore/Operations";
-				PRODUCT_BUNDLE_IDENTIFIER = com.wp.MetalImageProcessing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wp.MetalImageProcessing.o;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;

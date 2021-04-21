@@ -25,7 +25,7 @@ extension MTLCommandBuffer {
     }
     /// 提交渲染指令
     /// - Parameters:
-    ///   - pipelineState: 渲染管线状态
+    ///   - pipelineState: 渲染管线状态（An object that contains the graphics functions and configuration state used in a render pass.）
     ///   - uniformSettings: 控制核心
     ///   - inputTextures: 输入的纹理们
     ///   - useNormalizedTextureCoordinates: 使用归一化纹理坐标
@@ -61,7 +61,7 @@ extension MTLCommandBuffer {
           这里面，对于场景的每一个模型用给定的渲染状态来进行一次drawcall处理，就是一个pass。
           因此，一个Tech，就是一个算法实现，一个pass，就是对一组数据的统一处理步骤。当然，个人理解而已。
 
-          因此MTLRenderPassDescriptor 是不是次面上翻译成“渲染过程描述”
+          因此MTLRenderPassDescriptor 是不是词面上翻译成“渲染过程描述”
           
           */
          
@@ -112,11 +112,18 @@ extension MTLCommandBuffer {
                                                                              options: [])!
             textureBuffer.label = "Texture Coordinates"
 
-            // 设置顶点缓存
+            /*
+             设置顶点缓存，Sets a buffer for the vertex function.
+             也就是给顶点着色器设置参数
+             */
             renderEncoder.setVertexBuffer(textureBuffer, offset: 0, index: 1 + textureIndex)
-            // 设置纹理
+            /*
+             设置纹理，Sets a texture for the fragment function at an index in the texture argument table.
+             也就是给片段着色器函数的纹理参数设置
+             */
             renderEncoder.setFragmentTexture(currentTexture.texture, index: textureIndex)
         }
+        //片段着色器参数设置
         uniformSettings?.restoreShaderSettings(renderEncoder: renderEncoder)
         /*
          Encodes a command to render one instance of primitives using vertex data in contiguous array elements.
