@@ -1,6 +1,6 @@
 #include <metal_stdlib>
 using namespace metal;
-
+//参考文章https://xiaozhuanlan.com/topic/3105827964
 typedef struct
 {
     float4 position [[position]];
