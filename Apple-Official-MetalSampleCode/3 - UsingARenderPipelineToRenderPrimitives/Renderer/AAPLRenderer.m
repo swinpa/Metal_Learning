@@ -134,7 +134,7 @@ Implementation of a platform independent renderer class, which performs Metal se
         [renderEncoder setViewport:(MTLViewport){0.0, 0.0, _viewportSize.x, _viewportSize.y, 0.0, 1.0 }];
         /*
          设置渲染管道，以保证顶点和片元两个shader会被调用
-         id<MTLRenderPipelineState> _pipelineState 也就是该渲染过程中的核心事情（也就是对定点，纹理做什么处理）
+         id<MTLRenderPipelineState> _pipelineState 也就是该渲染过程中的核心事情（也就是对顶点，纹理做什么处理）
          */
         [renderEncoder setRenderPipelineState:_pipelineState];
 
@@ -162,6 +162,10 @@ Implementation of a platform independent renderer class, which performs Metal se
 
     // Finalize rendering here & push the command buffer to the GPU.
     [commandBuffer commit];
+}
+
+- (void)test {
+    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)
 }
 
 @end

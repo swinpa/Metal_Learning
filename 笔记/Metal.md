@@ -57,7 +57,7 @@ let imageTexture = try textureLoader.newTexture(cgImage: image, options: [MTKTex
 
 ```
 let defaultLibrary = try device.makeLibrary(filepath:metalLibraryPath)
-let fragmentFunction = sharedContext.defaultLibrary.makeFunction(name: fragmentFunctionName)    
+let fragmentFunction = defaultLibrary.makeFunction(name: fragmentFunctionName)    
 let descriptor = MTLRenderPipelineDescriptor()
 descriptor.colorAttachments[0].pixelFormat = MTLPixelFormat.bgra8Unorm
 descriptor.vertexFunction = vertexFunction
@@ -79,7 +79,8 @@ renderPass.colorAttachments[0].loadAction = .clear
 #####4. 通过MTLRenderCommandEncoder将前面的目标纹理(imageTexture 也就是图片)，怎么处理(着色器)，输出纹理outputTexture与commandBuffer关联起来
 
 ```
-let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPass)        renderEncoder.setFrontFacing(.counterClockwise)
+let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPass)        
+renderEncoder.setFrontFacing(.counterClockwise)
 //设置着色器
 renderEncoder.setRenderPipelineState(pipelineState)
 //设置顶点着色器的参数
