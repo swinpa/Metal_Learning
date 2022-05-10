@@ -115,6 +115,7 @@ extension MTLCommandBuffer {
             /*
              设置顶点缓存，Sets a buffer for the vertex function.
              也就是给顶点着色器设置参数
+             因为for()前面已经设有一次setVertexBuffer，所以这里的index要从1 开始
              */
             renderEncoder.setVertexBuffer(textureBuffer, offset: 0, index: 1 + textureIndex)
             /*

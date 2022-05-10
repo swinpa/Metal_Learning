@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import CoreGraphics
+import CoreImage
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -32,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("+++++++++++++++end+++++++++++++++++")
         sleep(20)
         print("+++++++++++++++awake+++++++++++++++++")
+        
+        CALayer
+        
         return true
     }
 

@@ -65,6 +65,10 @@ open class BasicOperation: ImageProcessingOperation {
         // TODO: Finish implementation later
     }
     
+    /// 更新滤镜的纹理数据（可以理解成更新输入）一旦输入有更新，就会创建commandBuffer提交到Queue中进行重新渲染
+    /// - Parameters:
+    ///   - texture: <#texture description#>
+    ///   - fromSourceIndex: <#fromSourceIndex description#>
     public func newTextureAvailable(_ texture: Texture, fromSourceIndex: UInt) {
         let _ = textureInputSemaphore.wait(timeout:DispatchTime.distantFuture)
         defer {//函数返回时执行{}中语句
@@ -172,6 +176,10 @@ open class BasicOperation: ImageProcessingOperation {
         }
     }
     
+    /// 内部进行commandBuffer 的encoder,也就是配置各种参数，如着色器，
+    /// - Parameters:
+    ///   - commandBuffer: <#commandBuffer description#>
+    ///   - outputTexture: <#outputTexture description#>
     func internalRenderFunction(commandBuffer: MTLCommandBuffer, outputTexture: Texture) {
         commandBuffer.renderQuad(pipelineState: renderPipelineState,//在初始化时已经准备好了着色器函数
                                  uniformSettings: uniformSettings,

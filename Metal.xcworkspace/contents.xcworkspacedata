@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <Group
+      location = "container:"
+      name = "GPUImage2">
+      <FileRef
+         location = "group:GPUImage2/examples/iOS/SimpleVideoRecorder/SimpleVideoRecorder.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:GPUImage2/examples/iOS/SimpleVideoFilter/SimpleVideoFilter.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:GPUImage2/examples/iOS/SimpleImageFilter/SimpleImageFilter.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:GPUImage2/examples/iOS/FilterShowcase/FilterShowcase.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:GPUImage2/examples/iOS/SimpleMovieFilter/SimpleMovieFilter.xcodeproj">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Metal-Practice/MetalImageProcessing/MetalImageProcessing.xcodeproj">
    </FileRef>
    <Group
       location = "group:&#x7b14;&#x8bb0;"
       name = "&#x7b14;&#x8bb0;">
+      <FileRef
+         location = "group:GPUImage.md">
+      </FileRef>
       <FileRef
          location = "group:Metal.md">
       </FileRef>

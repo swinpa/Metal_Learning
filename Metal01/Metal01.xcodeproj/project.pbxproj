@@ -49,6 +49,7 @@
 		841F55F8225F40F0001B9245 /* Metal01UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metal01UITests.swift; sourceTree = "<group>"; };
 		841F55FA225F40F0001B9245 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		841F5607225F412B001B9245 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		F776AB6327C8E9E700A17ADF /* GPUImage2 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GPUImage2; path = ../GPUImage2; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +81,7 @@
 		841F55CC225F40EF001B9245 = {
 			isa = PBXGroup;
 			children = (
+				F776AB6327C8E9E700A17ADF /* GPUImage2 */,
 				841F55D7225F40EF001B9245 /* Metal01 */,
 				841F55EC225F40F0001B9245 /* Metal01Tests */,
 				841F55F7225F40F0001B9245 /* Metal01UITests */,
