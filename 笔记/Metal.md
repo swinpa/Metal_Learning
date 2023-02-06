@@ -101,6 +101,12 @@ After endEncoding is called, the command encoder has no further use. You cannot 
 renderEncoder.endEncoding()
 ```
 
+#####总结一下就是：
+	
+	GPU有一个command queue，queue中的元素是command buffer，它会从这个queue中获取command ，
+	并根据这个command的描述执行操作。
+	command buffer描述了GPU执行的参数，比如输入的纹理是什么（也就是需要对谁做处理），纹理格式是什么
+	怎么做（顶点着色器是什么，片段着色器是什么）。处理完输出又是什么
 
 
 ##GPUImage 执行流程
